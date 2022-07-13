@@ -1,14 +1,18 @@
-from fastapi import Depends, HTTPException, Header, status
+from os import getenv
 from typing import Generator
+
+from fastapi import Depends, HTTPException, Header, status
+from jose import jwt
 from pydantic import ValidationError
 from sqlalchemy.orm import Session
-from jose import jwt
 
+import crud
+from core import security
 from db.session import SessionLocal
 from models.user import User
-from core import security, settings
 from schemas import TokenPayload
-import crud
+
+SECRET_KEY = getenv('SECRET_KEY')
 
 
 def get_db() -> Generator:
@@ -23,7 +27,7 @@ def get_current_user(db: Session = Depends(get_db), authorization: str = Header(
     if db is None:
         print('db is None')
     try:
-        payload = jwt.decode(authorization[7:], settings.SECRET_KEY, algorithms=[security.ALGORITHM])
+        payload = jwt.decode(authorization[7:], SECRET_KEY, algorithms=[security.ALGORITHM])
         token_data = TokenPayload(**payload)
     except (jwt.JWTError, ValidationError) as e:
         print(e)

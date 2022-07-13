@@ -1,8 +1,12 @@
 from datetime import timedelta, datetime
-from core import settings
+from os import getenv
+
 from jose import jwt
 from passlib.context import CryptContext
 
+from core import settings
+
+SECRET_KEY = getenv('SECRET_KEY')
 pwd_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
 
 
@@ -16,7 +20,7 @@ class Security:
             expire = datetime.utcnow() + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
 
         to_encode = {'exp': expire, 'sub': str(subject)}
-        return jwt.encode(to_encode, settings.SECRET_KEY, algorithm=self.ALGORITHM)
+        return jwt.encode(to_encode, SECRET_KEY, algorithm=self.ALGORITHM)
 
     def hash_password(self, password: str) -> str:
         return pwd_context.hash(password)
