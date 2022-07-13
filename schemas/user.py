@@ -28,7 +28,7 @@ class UserOut(BaseModel):
 
     class Config:
         orm_mode = True
-        # alias_generator = case
+        alias_generator = case
 
 
 class UserUpdate(BaseModel):

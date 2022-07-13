@@ -1,4 +1,5 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Path
+from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
 
 from enums import Category, Subcategory
@@ -24,6 +25,8 @@ def get_products(
 
 
 @router.get("/{id}")
-def get_by_id(id: int):
-    return schemas.Subcategory(name="asd", title="qwe")
-    # return schemas.Subcategory(name=f'Name - {id}', title='Title')
+def get_by_id(db: Session = Depends(get_db), id: int = Path(ge=0)):
+    product: models.Product = crud.products.get_by_id(db, id)
+    products_data = jsonable_encoder(product)
+    products_data['brand'] = {'id': product.brand.id, 'name': product.brand.name}
+    return schemas.Product(**products_data)
