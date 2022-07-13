@@ -19,7 +19,7 @@ class UserSignIn(BaseModel):
 class UserOut(BaseModel):
     id: int
 
-    customer_name: str | None = Field(None, alias="customerName")
+    customer_name: str | None = Field(None, alias='customerName')
 
     email: EmailStr | None = None
     city: str | None = None

@@ -18,45 +18,45 @@ def get_subcategories(category: Category) -> list[Subcategory]:
 def get_category_label(category: Category) -> str:
     match category:
         case Category.T_SHIRTS:
-            return "Koszulki"
+            return 'Koszulki'
         case Category.SWEATSHIRTS:
-            return "Bluzy"
+            return 'Bluzy'
         case Category.TROUSERS:
-            return "Spodnie"
+            return 'Spodnie'
         case Category.ACCESSORIES:
-            return "Akcesoria"
+            return 'Akcesoria'
         case _:
-            return "Błąd"
+            return 'Błąd'
 
 
 def get_subcategory_label(subcategory: Subcategory) -> str:
     match subcategory:
         case Subcategory.HOODIE:
-            return "Hoodie"
+            return 'Hoodie'
         case Subcategory.CRAWNECK:
-            return "Bez kaptura"
+            return 'Bez kaptura'
         case Subcategory.T_SHIRT:
-            return "Z krótkim rękawem"
+            return 'Z krótkim rękawem'
         case Subcategory.LONG_SLEEVE:
-            return "Z długim rękawem"
+            return 'Z długim rękawem'
         case Subcategory.POLO:
-            return "Polo"
+            return 'Polo'
         case Subcategory.CHINOS:
-            return "Chinosy"
+            return 'Chinosy'
         case Subcategory.JEANS:
-            return "Jeansy"
+            return 'Jeansy'
         case Subcategory.ELEGANT:
-            return "Eleganckie"
+            return 'Eleganckie'
         case Subcategory.HATS:
-            return "Czapki i kapelusze"
+            return 'Czapki i kapelusze'
         case Subcategory.WATCHES:
-            return "Zegarki"
+            return 'Zegarki'
         case Subcategory.STRIPES:
-            return "Paski"
+            return 'Paski'
         case Subcategory.BACKPACKS:
-            return "Plecaki"
+            return 'Plecaki'
         case _:
-            return "Błąd"
+            return 'Błąd'
 
 
 def get_external_username(external_id: str, account_type: AccountType):

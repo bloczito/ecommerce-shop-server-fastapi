@@ -9,13 +9,13 @@ from api.deps import get_current_user, get_db
 from models import User, Order, OrderElement
 
 router = APIRouter(
-    prefix="/orders",
-    tags=["Orders"],
+    prefix='/orders',
+    tags=['Orders'],
     dependencies=[Depends(get_current_user)]
 )
 
 
-@router.get("")
+@router.get('')
 def get_orders(user: User = Depends(get_current_user)):
     orders: list[Order] = user.orders
 
@@ -37,8 +37,8 @@ def get_orders(user: User = Depends(get_current_user)):
         ) for e in elements]
 
         order_data: dict = jsonable_encoder(o)
-        order_data["orderNumber"] = o.order_number
-        order_data["orderDate"] = str(o.order_date)
+        order_data['orderNumber'] = o.order_number
+        order_data['orderDate'] = str(o.order_date)
         order_data['items'] = cart_elements
         order_data['customerName'] = o.customer_name
         results.append(schemas.Order(**order_data))
@@ -46,7 +46,7 @@ def get_orders(user: User = Depends(get_current_user)):
     return results
 
 
-@router.post("")
+@router.post('')
 def create_order(
         db: Session = Depends(get_db),
         user: User = Depends(get_current_user),

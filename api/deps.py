@@ -21,7 +21,7 @@ def get_db() -> Generator:
 
 def get_current_user(db: Session = Depends(get_db), authorization: str = Header()) -> User:
     if db is None:
-        print("db is None")
+        print('db is None')
     try:
         payload = jwt.decode(authorization[7:], settings.SECRET_KEY, algorithms=[security.ALGORITHM])
         token_data = TokenPayload(**payload)
@@ -29,11 +29,11 @@ def get_current_user(db: Session = Depends(get_db), authorization: str = Header(
         print(e)
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Could not validate credentials",
+            detail='Could not validate credentials',
         )
     user = crud.users.get(db, id=4)
 
     if not user:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(status_code=404, detail='User not found')
 
     return user

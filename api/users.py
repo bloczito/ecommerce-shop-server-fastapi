@@ -8,20 +8,20 @@ import schemas
 import crud
 
 router = APIRouter(
-    prefix="/users",
-    tags=["Users"],
+    prefix='/users',
+    tags=['Users'],
     dependencies=[Depends(get_current_user)]
 )
 
 
-@router.get("", response_model=schemas.UserOut)
+@router.get('', response_model=schemas.UserOut)
 def get_user(user: models.User = Depends(get_current_user)):
     user_data = jsonable_encoder(user)
     user_data['customerName'] = user.customer_name
     return schemas.UserOut(**user_data)
 
 
-@router.put("")
+@router.put('')
 def update_user(
         *,
         db: Session = Depends(get_db),

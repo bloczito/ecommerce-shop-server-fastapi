@@ -14,10 +14,10 @@ from enums import AccountType
 
 oauth = OAuth()
 oauth.register(
-    name="google",
-    server_metadata_url="https://accounts.google.com/.well-known/openid-configuration",
-    client_id=getenv("GOOGLE_CLIENT_ID"),
-    client_secret=getenv("GOOGLE_CLIENT_SECRET"),
+    name='google',
+    server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
+    client_id=getenv('GOOGLE_CLIENT_ID'),
+    client_secret=getenv('GOOGLE_CLIENT_SECRET'),
     client_kwargs={
         'scope': 'openid email profile'
         # 'scope': 'user:email'
@@ -35,17 +35,17 @@ oauth.register(
     }
 )
 
-router = APIRouter(tags=["Security"])
+router = APIRouter(tags=['Security'])
 
 
-@router.route("/login")
+@router.route('/login')
 async def login_via_google(request: Request):
     google: StarletteOAuth2App = oauth.create_client('google')
     redirect_uri = request.url_for('authorize_google')
     return await google.authorize_redirect(request, redirect_uri)
 
 
-@router.get("/login/{oauth_type}")
+@router.get('/login/{oauth_type}')
 async def login_oauth(request: Request, oauth_type: OAuthType):
     client: StarletteOAuth2App = oauth.create_client('google' if oauth_type == OAuthType.GOOGLE else 'github')
     redirect_uri = request.url_for('authorize_google' if oauth_type == OAuthType.GOOGLE else 'authorize_github')
@@ -56,8 +56,8 @@ async def login_oauth(request: Request, oauth_type: OAuthType):
 async def authorize_google(request: Request, db: Session = Depends(get_db)):
     google: StarletteOAuth2App = oauth.create_client('google')
     token: OAuth2Token = await google.authorize_access_token(request)
-    user_info: dict = token.get("userinfo")
-    user = crud.users.get(db, username=get_external_username(user_info.get("sub"), AccountType.GOOGLE))
+    user_info: dict = token.get('userinfo')
+    user = crud.users.get(db, username=get_external_username(user_info.get('sub'), AccountType.GOOGLE))
 
     if not user:
         user = crud.users.create_oauth(
@@ -89,7 +89,7 @@ def sign_up(db: Session = Depends(get_db), user: UserCreate = Body()):
 def sign_id(db: Session = Depends(get_db), user: UserSignIn = Body()):
     user = crud.users.authenticate(db, email=user.email, password=user.password)
     if not user:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(status_code=404, detail='User not found')
 
     return security.create_token(user.username)
 

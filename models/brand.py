@@ -9,14 +9,14 @@ if TYPE_CHECKING:
 
 
 class Brand(Base):
-    __tablename__ = "brands"
+    __tablename__ = 'brands'
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     name = Column(String, index=True)
-    products = relationship("Product", back_populates="brand")
+    products = relationship('Product', back_populates='brand')
 
     def __repr__(self):
-        return f"<Brand(name='{self.name}')>"
+        return f'<Brand(name="{self.name}")>'
 
     def __str__(self):
         return self.name

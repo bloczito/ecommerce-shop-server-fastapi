@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 
 class Product(Base):
-    __tablename__ = "products"
+    __tablename__ = 'products'
 
     id = Column(Integer, primary_key=True, autoincrement=True, index=True)
     name = Column(String, nullable=False)
@@ -22,7 +22,7 @@ class Product(Base):
     category = Column(SqlEnum(Category), nullable=False)
     subcategory = Column(SqlEnum(Subcategory), nullable=False)
 
-    brand_id = Column(Integer, ForeignKey("brands.id"), nullable=False)
-    brand = relationship("Brand", back_populates="products")
+    brand_id = Column(Integer, ForeignKey('brands.id'), nullable=False)
+    brand = relationship('Brand', back_populates='products')
 
-    order_elements = relationship("OrderElement", back_populates="product")
+    order_elements = relationship('OrderElement', back_populates='product')

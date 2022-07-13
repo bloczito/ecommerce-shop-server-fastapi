@@ -9,12 +9,12 @@ import schemas
 import crud
 
 router = APIRouter(
-    prefix="/products",
-    tags=["Products"],
+    prefix='/products',
+    tags=['Products'],
 )
 
 
-@router.get("")
+@router.get('')
 def get_products(
         db: Session = Depends(get_db),
         category: Category | None = None,
@@ -24,7 +24,7 @@ def get_products(
     return crud.products.get(db, category=category, subcategory=subcategory, random=random)
 
 
-@router.get("/{id}")
+@router.get('/{id}')
 def get_by_id(db: Session = Depends(get_db), id: int = Path(ge=0)):
     product: models.Product = crud.products.get_by_id(db, id)
     products_data = jsonable_encoder(product)

@@ -3,7 +3,7 @@ from core import settings
 from jose import jwt
 from passlib.context import CryptContext
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+pwd_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
 
 
 class Security:
@@ -15,7 +15,7 @@ class Security:
         else:
             expire = datetime.utcnow() + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
 
-        to_encode = {"exp": expire, "sub": str(subject)}
+        to_encode = {'exp': expire, 'sub': str(subject)}
         return jwt.encode(to_encode, settings.SECRET_KEY, algorithm=self.ALGORITHM)
 
     def hash_password(self, password: str) -> str:

@@ -28,4 +28,4 @@ def create_payment(dto: PaymentCreate = Body()):
 
     except Exception as e:
         print(e)
-        return JSONResponse("Cannot process payment", status_code=500)
+        return JSONResponse('Cannot process payment', status_code=500)

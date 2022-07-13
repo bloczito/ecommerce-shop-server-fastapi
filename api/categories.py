@@ -5,12 +5,12 @@ from schemas import Category as CategoryS, Subcategory as SubcategoryS
 from misc import utils
 
 router = APIRouter(
-    prefix="/categories",
-    tags=["Categories"]
+    prefix='/categories',
+    tags=['Categories']
 )
 
 
-@router.get("")
+@router.get('')
 def get_categories():
 
     categories: list[CategoryModel] = [c for c in CategoryModel]
